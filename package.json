@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "mysql": "^2.18.1",
+    "request": "^2.88.2",
     "url-status-code": "^2.0.0"
   }
 }
