@@ -9,6 +9,10 @@
   "author": "Toma",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.3",
+    "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "request": "^2.88.2",
     "url-status-code": "^2.0.0"

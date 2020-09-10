@@ -2,6 +2,16 @@ const request = require('request')
 var mysql = require('mysql');
 const fs = require('fs');
 var now = 0;
+const http = require('http')
+
+const server = http.createServer((req, res) => {
+
+});
+
+server.listen('3000', 'localhost', () => {
+
+});
+
 
 fs.writeFile('errorlog.txt', '', function(err) {
     if (err) throw err;
