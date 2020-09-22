@@ -32,27 +32,32 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-connection.query('SELECT element_link from report_broken where id < 10', function(error, results, fields) {
+connection.query('SELECT element_link from report_broken where id < 4000 and element_link_status != N/A', function(error, results, fields) {
     if (error) throw error;
     for (var i = 0; i < results.length; i++) {
         //console.log('The url is ' + i + ' : ', results[i].element_link);
         var nowurl = results[i].element_link;
-        checkurl(nowurl)
+        checkurl(nowurl,i)
     }
 });
 
-function checkurl(nowurl) {
+function checkurl(nowurl,i) {
     request(nowurl, function(error, response, data) {
         if (error) {
             console.log(error);
             fs.appendFileSync('errorlog.txt', '\n' + error + '\n');
         } else {
-            console.log('nowurl', nowurl)
+            console.log(i + ' nowurl:', nowurl)
             //console.log(response.request)
             //console.log(response.request.href)
             //console.log('url', response.headers['x-acquia-host'] + response.headers['x-acquia-path'])
             console.log('statusCode', response.statusCode)
             fs.appendFileSync('tt.txt', '\n' + nowurl + ':' + response.statusCode);
+            let modSql = 'UPDATE `report_broken` SET `element_link_status` = ? WHERE `element_link` = ?';
+            let modSqlParams = [response.statusCode, nowurl];
+            connection.query(modSql, modSqlParams, (err, result) => {
+                if (err) throw err;
+            });
         }
     });
 }

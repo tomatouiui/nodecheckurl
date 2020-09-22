@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const blogRoutes = require('./routes/blogRoutes');
+const cloudcardRoutes = require('./routes/cloudcardRoutes');
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -26,6 +27,9 @@ app.use(morgan('dev'));
 app.get('/about', (req, res) => {
     res.render('about', { title: 'About' });
   });
+
+// blog routes
+app.use('/cloudcard', cloudcardRoutes);
 
 // blog routes
 app.use('/', blogRoutes);
